@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  mongo-db:
+    image: mongo:7
+    environment:
+      MONGO_INITDB_DATABASE: calendario_laboral
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./mongodb/01-init-db.mongodb.js:/docker-entrypoint-initdb.d/01-init-db.js:ro
+      - ./mongodb/02-seed-data.mongodb.js:/docker-entrypoint-initdb.d/02-seed-data.js:ro
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  express-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PORT: 3000
+      MONGODB_URI: mongodb://mongo-db:27017/calendario_laboral
+      JWT_SECRET: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+      JWT_EXPIRES_IN: 30m
+    depends_on:
+      mongo-db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mongo_data:

@@ -1,0 +1,24 @@
+{
+  "name": "api-calendario-laboral-express",
+  "version": "1.0.0",
+  "description": "Migracion del calendario laboral a Express JS + MongoDB",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "seed": "node scripts/seed.js",
+    "check": "node scripts/check-syntax.js",
+    "mongo:init": "mongosh --file mongodb/01-init-db.mongodb.js",
+    "mongo:seed": "mongosh --file mongodb/02-seed-data.mongodb.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.12.1"
+  }
+}
