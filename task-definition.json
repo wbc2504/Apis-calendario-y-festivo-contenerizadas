@@ -1,0 +1,77 @@
+{
+  "family": "calendario-spring-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/ecsTaskRole",
+  "containerDefinitions": [
+    {
+      "name": "spring-api",
+      "image": "<ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<IMAGE_REPO_NAME>:latest",
+      "cpu": 512,
+      "memory": 1024,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "SERVER_PORT",
+          "value": "8080"
+        },
+        {
+          "name": "SPRING_DATASOURCE_URL",
+          "value": "jdbc:postgresql://<POSTGRES_HOST>:5432/CalendarioLaboral"
+        },
+        {
+          "name": "SPRING_DATASOURCE_USERNAME",
+          "value": "postgres"
+        },
+        {
+          "name": "SPRING_DATASOURCE_PASSWORD",
+          "value": "Cripto-2026"
+        },
+        {
+          "name": "EXPRESS_API_BASE_URL",
+          "value": "http://<EXPRESS_API_HOST>:3000"
+        },
+        {
+          "name": "EXPRESS_API_USUARIO",
+          "value": "frayosorio"
+        },
+        {
+          "name": "EXPRESS_API_CLAVE",
+          "value": "123"
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "spring_temp_volume",
+          "containerPath": "/tmp",
+          "readOnly": false
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/calendario-laboral",
+          "awslogs-region": "<AWS_REGION>",
+          "awslogs-stream-prefix": "spring"
+        }
+      }
+    }
+  ],
+  "volumes": [
+    {
+      "name": "spring_temp_volume"
+    }
+  ]
+}
