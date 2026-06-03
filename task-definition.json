@@ -6,12 +6,12 @@
   ],
   "cpu": "512",
   "memory": "1024",
-  "executionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/ecsTaskExecutionRole",
-  "taskRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/ecsTaskRole",
+  "executionRoleArn": "arn:aws:iam::697568497647:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::697568497647:role/ecsTaskRole",
   "containerDefinitions": [
     {
-      "name": "spring-api",
-      "image": "<ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/<IMAGE_REPO_NAME>:latest",
+      "name": "api-calendario-laboral",
+      "image": "697568497647.dkr.ecr.us-east-2.amazonaws.com/calendario-spring:latest",
       "cpu": 512,
       "memory": 1024,
       "essential": true,
@@ -22,56 +22,14 @@
           "protocol": "tcp"
         }
       ],
-      "environment": [
-        {
-          "name": "SERVER_PORT",
-          "value": "8080"
-        },
-        {
-          "name": "SPRING_DATASOURCE_URL",
-          "value": "jdbc:postgresql://<POSTGRES_HOST>:5432/CalendarioLaboral"
-        },
-        {
-          "name": "SPRING_DATASOURCE_USERNAME",
-          "value": "postgres"
-        },
-        {
-          "name": "SPRING_DATASOURCE_PASSWORD",
-          "value": "Cripto-2026"
-        },
-        {
-          "name": "EXPRESS_API_BASE_URL",
-          "value": "http://<EXPRESS_API_HOST>:3000"
-        },
-        {
-          "name": "EXPRESS_API_USUARIO",
-          "value": "frayosorio"
-        },
-        {
-          "name": "EXPRESS_API_CLAVE",
-          "value": "123"
-        }
-      ],
-      "mountPoints": [
-        {
-          "sourceVolume": "spring_temp_volume",
-          "containerPath": "/tmp",
-          "readOnly": false
-        }
-      ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "/ecs/calendario-laboral",
-          "awslogs-region": "<AWS_REGION>",
+          "awslogs-region": "us-east-2",
           "awslogs-stream-prefix": "spring"
         }
       }
-    }
-  ],
-  "volumes": [
-    {
-      "name": "spring_temp_volume"
     }
   ]
 }
