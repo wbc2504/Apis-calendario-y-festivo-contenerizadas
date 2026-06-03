@@ -11,7 +11,7 @@
   "containerDefinitions": [
     {
       "name": "api-calendario-laboral",
-      "image": "697568497647.dkr.ecr.us-east-2.amazonaws.com/calendario-spring:latest",
+      "image": "697568497647.dkr.ecr.us-east-2.amazonaws.com/calendario-laboral-repo:latest",
       "cpu": 512,
       "memory": 1024,
       "essential": true,
