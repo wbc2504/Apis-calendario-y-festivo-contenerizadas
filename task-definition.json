@@ -7,7 +7,6 @@
   "cpu": "512",
   "memory": "1024",
   "executionRoleArn": "arn:aws:iam::697568497647:role/ecsTaskExecutionRole",
-  "taskRoleArn": "arn:aws:iam::697568497647:role/ecsTaskRole",
   "containerDefinitions": [
     {
       "name": "api-calendario-laboral",
@@ -20,6 +19,20 @@
           "containerPort": 8080,
           "hostPort": 8080,
           "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "SPRING_DATASOURCE_URL",
+          "value": "jdbc:postgresql://calendario-laboral-db.cx4cy4u4460o.us-east-2.rds.amazonaws.com:5432/calendariolaboral"
+        },
+        {
+          "name": "SPRING_DATASOURCE_USERNAME",
+          "value": "postgres"
+        },
+        {
+          "name": "SPRING_DATASOURCE_PASSWORD",
+          "value": "Cripto-2026"
         }
       ],
       "logConfiguration": {
