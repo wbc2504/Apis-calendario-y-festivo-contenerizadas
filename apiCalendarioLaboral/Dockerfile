@@ -20,9 +20,9 @@ FROM eclipse-temurin:17-jre
 WORKDIR /app
 
 ENV SERVER_PORT=8080
-ENV SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/CalendarioLaboral
+ENV SPRING_DATASOURCE_URL=jdbc:postgresql://calendario-laboral-db.cx4cy4u4460o.us-east-2.rds.amazonaws.com:5432/calendariolaboral
 ENV SPRING_DATASOURCE_USERNAME=postgres
-ENV SPRING_DATASOURCE_PASSWORD=1234
+ENV SPRING_DATASOURCE_PASSWORD=Cripto-2026
 ENV EXPRESS_API_BASE_URL=http://express-api:3000
 ENV EXPRESS_API_USUARIO=frayosorio
 ENV EXPRESS_API_CLAVE=123
